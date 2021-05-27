@@ -36,6 +36,15 @@ public class Users {
         database.insert(UserDbSchema.UserTable.NAME,null,values);
     }
 
+    public void updateUser(User user){ // Метод редактирования пользователя в БД
+        ContentValues values = getContentValues(user);
+        database.update(UserDbSchema.UserTable.NAME, values, UserDbSchema.UserTable.Cols.UUID+"=?", new String[]{user.getUuid().toString()});
+    }
+
+    public void deleteUser(User user){ // Метод редактирования пользователя в БД
+        database.delete(UserDbSchema.UserTable.NAME, UserDbSchema.UserTable.Cols.UUID+"=?", new String[]{user.getUuid().toString()});
+    }
+
     private static ContentValues getContentValues(User user){
         ContentValues values = new ContentValues();
         values.put(UserDbSchema.UserTable.Cols.UUID, user.getUuid().toString());
